@@ -8,7 +8,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def rmsf_plot(topology, xtc_traj, start_frame=0, stop_frame=None):
+def concatenate_parallel_simulation(trajectory_list):
+    import mdtraj as md
+    md.join(trajectory_list, discard_overlapping_frames=False, check_topology=True)
+
+
+def rmsf_plot(topology, xtc_traj, start_frame=None, stop_frame=None):
     # Gromacs does not set the element symbol in its PDB files,
     # but Biotite guesses the element names from the atom names,
     # emitting a warning
@@ -73,8 +78,9 @@ def rmsf_plot(topology, xtc_traj, start_frame=0, stop_frame=None):
 
 
 if __name__ == "__main__":
+    # Convert_Trajectory_Format_From_Terminal_with_MDTraj : mdconvert <input_trajectory> -o <output_trajectory>
     # Put here the path of the files
     templ_file_path = 'C:\\Users\\HIbrahim\\Desktop\\OpenMM_PerTool\\examples\\lysozyme_md.pdb'
     traj_file_path = 'C:\\Users\\HIbrahim\\Desktop\\OpenMM_PerTool\\examples\\lysozyme_md.xtc'
 
-    rmsf_plot(topology=templ_file_path, xtc_traj=traj_file_path, start_frame=0, stop_frame=80)
+    rmsf_plot(topology=templ_file_path, xtc_traj=traj_file_path)
