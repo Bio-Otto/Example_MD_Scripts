@@ -3,7 +3,7 @@ import biotite
 import biotite.structure as struc
 import biotite.structure.io as strucio
 from biotite.structure.io.xtc import XTCFile
-
+import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -13,11 +13,12 @@ def concatenate_parallel_simulation(trajectory_list):
     md.join(trajectory_list, discard_overlapping_frames=False, check_topology=True)
 
 
-def rmsf_plot(topology, xtc_traj, start_frame=None, stop_frame=None):
+def rmsf_plot(topology, xtc_traj, start_frame=None, stop_frame=None, write_dat_files = None):
     # Gromacs does not set the element symbol in its PDB files,
     # but Biotite guesses the element names from the atom names,
     # emitting a warning
     template = strucio.load_structure(topology)
+
 
     # The structure still has water and ions, that are not needed for our
     # calculations, we are only interested in the protein itself
@@ -25,15 +26,13 @@ def rmsf_plot(topology, xtc_traj, start_frame=None, stop_frame=None):
     # mask
     protein_mask = struc.filter_amino_acids(template)
     template = template[protein_mask]
-
-    from mdtraj.formats.xtc import XTCTrajectoryFile
-    # with XTCTrajectoryFile(xtc_traj) as f:
+    residue_names = struc.get_residues(template)[1]
 
     xtc_file = XTCFile()
-    xtc_file.read(xtc_traj, atom_i=np.where(protein_mask)[0], start=start_frame, stop=stop_frame)
+    xtc_file.read(xtc_traj, atom_i=np.where(protein_mask)[0], start=start_frame, stop=stop_frame+1)
 
     trajectory = xtc_file.get_structure(template)
-    print(trajectory)
+
     time = xtc_file.get_time()  # Get simulation time for plotting purposes
 
     trajectory = struc.remove_pbc(trajectory)
@@ -74,6 +73,18 @@ def rmsf_plot(topology, xtc_traj, start_frame=None, stop_frame=None):
     ax.set_ylabel("RMSF (Å)")
     figure.tight_layout()
 
+    if write_dat_files == True:
+        # Write RMSD *.dat file
+        frames = np.array(range(start_frame-1, stop_frame), dtype=int)
+        frames[0] = 0
+        df = pd.DataFrame(data=rmsd, index=frames, columns=["RMSD Values"])
+        df.index.name = 'Frames'
+        df.to_csv('rmsd.dat',header=True, index=True, sep='\t', mode='w')
+
+        # Write RMSF *.dat file
+        df1 = pd.DataFrame(data=rmsf, index=residue_names, columns=["RMSF Values"])
+        df1.index.name = 'Residues'
+        df1.to_csv('rmsf.dat', header=True, index=True, sep='\t', mode='w')
     plt.show()
 
 
@@ -83,4 +94,4 @@ if __name__ == "__main__":
     templ_file_path = 'C:\\Users\\HIbrahim\\Desktop\\OpenMM_PerTool\\examples\\lysozyme_md.pdb'
     traj_file_path = 'C:\\Users\\HIbrahim\\Desktop\\OpenMM_PerTool\\examples\\lysozyme_md.xtc'
 
-    rmsf_plot(topology=templ_file_path, xtc_traj=traj_file_path)
+    rmsf_plot(topology=templ_file_path, xtc_traj=traj_file_path, start_frame=30, stop_frame=70, write_dat_files = True)
