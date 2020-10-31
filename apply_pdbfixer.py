@@ -1,15 +1,5 @@
-from __future__ import print_function
-
 from pdbfixer import PDBFixer
 from simtk.openmm.app.pdbfile import PDBFile
-from simtk.openmm import app
-import simtk.openmm.app.data
-import simtk.openmm.app.data.charmm36
-from simtk.unit import *
-from sys import stdout
-import parmed as pmd
-import numpy as np
-import time
 import os
 
 
