@@ -28,7 +28,7 @@ def mutate(pdb_path, mut_region=None, chain_id=None):
         Example
         ----------
 
-        mutate('C:/Users/HIbrahim/Desktop/MolDynAnalyze/test/last.pdb', mut_region='ASP-306-ARG', chain_id='A')
+        mutate('C:/Users/HIbrahim/Desktop/MolDynAnalyze/test/last.pdb', mut_region=['ASP-306-ARG'], chain_id='A')
 
     """
 
