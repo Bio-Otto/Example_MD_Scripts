@@ -1,7 +1,7 @@
-[![Powered by |Ozbek' Lab](https://github.com/Bio-Otto/Example_MD_Scripts/blob/master/PoweredByOzbekLab.png)](http://compbio.bioe.eng.marmara.edu.tr/)
 # Python / Molecular Dynamic Simulation Analysis  
 The repository including some practical scripts that must be found in your tool bag 
 
+[![Powered by |Ozbek' Lab](https://github.com/Bio-Otto/Example_MD_Scripts/blob/master/PoweredByOzbekLab.png)](http://compbio.bioe.eng.marmara.edu.tr/)
 
 
 #  **Good Resources to Remember:**
