@@ -1,7 +1,7 @@
-# Example_MD_Scripts
-Python / Molecular Dynamic Simulation Analysis Scripts 
+# Python based Molecular Dynamic Simulation Analysis Scripts 
+The repository including some practical scripts that must be found in your tool bag 
 
->  **Good Resources to Remember:**
+#  **Good Resources to Remember:**
 
 >  🔗 Langevin Dynamics: https://www.mdpi.com/2311-5521/5/1/40/htm
 
