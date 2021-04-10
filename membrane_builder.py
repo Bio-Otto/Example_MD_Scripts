@@ -20,8 +20,6 @@ def add_membrane(pdb_path, membrane_lipid_type='POPC'):
 
             membrane_lipid_type : Add POPC or POPE lipid membranes to your system.
 
-            chain_id : str
-                Chain ID to apply mutation.
 
             Example
             ----------
