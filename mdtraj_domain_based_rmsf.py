@@ -8,7 +8,7 @@ import mdtraj as md
 import matplotlib.pyplot as plt
 
 
-def get_rmsd_data(top, traj, start_frame, stop_frame, stride, selection, superpose, group_selections=None):
+def get_rmsf_data(top, traj, start_frame, stop_frame, stride, selection, superpose, group_selections=None):
     """
         Make RMSF Calculation with Group Selections with mdtraj.
 
@@ -40,7 +40,7 @@ def get_rmsd_data(top, traj, start_frame, stop_frame, stride, selection, superpo
             Example
             ----------
 
-            or_rmsf, domain_rmsf, time, residue_list = get_rmsd_data(top='test/protein.pdb', traj='test/50_frame.dcd',
+            or_rmsf, domain_rmsf, time, residue_list = get_rmsf_data(top='test/protein.pdb', traj='test/50_frame.dcd',
                                                          start_frame=0, stop_frame=49, stride=1,
                                                          selection='backbone and name CA', name='aaa', superpose=True,
                                                          group_selections=["backbone and name CA and resid 0 to 20",
